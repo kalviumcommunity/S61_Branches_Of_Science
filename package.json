@@ -1,0 +1,12 @@
+{
+  "name": "s61_branches_of_science",
+  "version": "1.0.0",
+  "description": "Introduce the various fields of sciences to the larger audience and give basic information about the science field user intreseted in.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": []
+}
