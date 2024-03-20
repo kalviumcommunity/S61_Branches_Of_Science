@@ -1,7 +1,14 @@
+import { useState } from "react";
 import logo from "../assets/logo-transparent-svg.svg";
 import "./LandingPage.css";
+import Entity from "./Entity";
 
 const LandingPage = () => {
+  const [prov, setProv] = useState(false)
+  const handleClick = () => {
+    setProv(true)
+  }
+
   return (
     <div className="landing-page">
       <nav>
@@ -23,7 +30,9 @@ const LandingPage = () => {
           Explore various types of sciences and find your passion🧪🔬🔭
         </p>
         <div className="btn-container">
-        <button className="button-86" role="button">Start your exploration</button>
+        {
+          prov ? <Entity /> : <button className="button-86" role="button" onClick={handleClick}>Start your exploration</button>
+        }
         </div>
       </div>
     </div>
