@@ -1,0 +1,10 @@
+{
+    "id": 0,
+    "title": "Acoustics",
+    "toughness": 5,
+    "neededBasics": "Physics of sound, Mathematics, Audio technology",
+    "popularity": 6,
+    "timeTaken": "13hrs",
+    "overallGrade": 7,
+    "description": "Acoustics is a branch of physics that deals with the study of mechanical waves in gases, liquids, and solids including topics such as vibration, sound, ultrasound and infrasound."
+}
