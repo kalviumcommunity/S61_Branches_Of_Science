@@ -1,6 +1,7 @@
 import { CardContent } from "@mui/material";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
+import EntityForm from "./EntityForm";
 
 const Entity = () => {
   const [fetchedData, setFetchedData] = useState(null)
@@ -10,6 +11,12 @@ const Entity = () => {
     fetch("https://s61-branches-of-science-1.onrender.com/api/data").then((res) => res.json()).then((something) => setFetchedData(something.data));
   },[])
 
+  const handleAddEntity = (newData) => {
+    setFetchedData((prevData) => (prevData ? [...prevData, newData] : [newData]));
+  };
+
+  console.log(fetchedData)
+
   return (
     <div
       style={{
@@ -18,6 +25,7 @@ const Entity = () => {
         flexWrap: "wrap",
       }}
     >
+    <EntityForm onAddEntity={handleAddEntity} />
       {
         fetchedData && fetchedData.map((data) => (
           <Card
@@ -41,7 +49,7 @@ const Entity = () => {
           <div style={{ fontSize: "40px", padding:'10px' }}>{data["ID"]}</div>
           <div style={{padding: '10px', fontSize: '20px', fontWeight: 'bold'}}>{data["Title"]}</div>
           <div style={{padding: '10px', fontSize: '20px'}}>Toughness: {data["Toughness"]}</div>
-          <div style={{padding: '10px', fontSize: '20px'}}>Required basics: {data["Needed Basics"]}</div>
+          <div style={{padding: '10px', fontSize: '20px'}}>Required basics: {JSON.parse(`[${JSON.stringify(data["Needed basics"])}]`).map((el) => (el + " "))}</div>
           <div style={{padding: '10px', fontSize: '20px'}}>Popularity: {data["Popularity"]}</div>
           <div style={{padding: '10px', fontSize: '20px'}}>Time needed: {data["Time takes"]}</div>
           <div style={{padding: '10px', fontSize: '20px'}}>Overall grade: {data["Overall grade"]}</div>
