@@ -8,7 +8,7 @@ const Entity = () => {
 
   
   useEffect(() => {
-    fetch("https://s61-branches-of-science-1.onrender.com/api/data").then((res) => res.json()).then((something) => setFetchedData(something.data));
+    fetch("https://s61-branches-of-science-1.onrender.com/api/data").then((res) => res.json()).then((something) => setFetchedData(something.data.reverse()));
   },[])
 
   const handleAddEntity = (newData) => {
