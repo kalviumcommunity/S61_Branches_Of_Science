@@ -2,6 +2,8 @@ import { CardContent } from "@mui/material";
 import Card from "@mui/material/Card";
 import { useEffect, useState } from "react";
 import EntityForm from "./EntityForm";
+import axios from "axios";
+import UpdateEntity from "./UpdateEntity";
 
 const Entity = () => {
   const [fetchedData, setFetchedData] = useState(null)
@@ -13,7 +15,16 @@ const Entity = () => {
 
   const handleAddEntity = (newData) => {
     setFetchedData((prevData) => (prevData ? [...prevData, newData] : [newData]));
+    window.location.reload();
   };
+
+  const handleDelete = (id) => {
+    axios.delete(`https://s61-branches-of-science-1.onrender.com/api/remove/${id}`).then(() => {setFetchedData(fetchedData.filter((data) => data._id!== id))})
+  }
+
+  const handleUpdate = (id, newData) => {
+    axios.put(`https://s61-branches-of-science-1.onrender.com/api/update/${id}`, newData).then(() => {setFetchedData(fetchedData.map((data) => data._id === id? newData : data))})
+  }
 
   console.log(fetchedData)
 
@@ -26,6 +37,7 @@ const Entity = () => {
       }}
     >
     <EntityForm onAddEntity={handleAddEntity} />
+    <UpdateEntity onAddEntity={handleUpdate} />
       {
         fetchedData && fetchedData.map((data) => (
           <Card
@@ -46,6 +58,7 @@ const Entity = () => {
         key={data["ID"]}
       >
         <CardContent>
+        <div>Mongo_ID: {data._id}</div>
           <div style={{ fontSize: "40px", padding:'10px' }}>{data["ID"]}</div>
           <div style={{padding: '10px', fontSize: '20px', fontWeight: 'bold'}}>{data["Title"]}</div>
           <div style={{padding: '10px', fontSize: '20px'}}>Toughness: {data["Toughness"]}</div>
@@ -55,6 +68,7 @@ const Entity = () => {
           <div style={{padding: '10px', fontSize: '20px'}}>Overall grade: {data["Overall grade"]}</div>
           <div style={{padding: '10px', fontSize: '20px'}}>{data["Description"]}</div>
         </CardContent>
+        <button onClick={() => handleDelete(data._id)}>delete</button>
       </Card>
         ))
       }
