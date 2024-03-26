@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Branch = require("./Model/model");
+const EntitySchema = require("./Model/EntitiySchema");
 
 router.post("/add", async (req, res) => {
   const dataArray = req.body;
+  const { error } = EntitySchema.validate(dataArray);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
   try {
     const insertedBranch = await Branch.create(dataArray);
 
@@ -45,6 +50,10 @@ router.delete("/remove/:id", async (req, res) => {
 router.put("/update/:id", async (req, res) => {
   const branchId = req.params.id;
   const updatedBranchData = req.body;
+  const { error } = EntitySchema.validate(updatedBranchData);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
 
   try {
     const updatedBranch = await Branch.findByIdAndUpdate(
