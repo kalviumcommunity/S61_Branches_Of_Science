@@ -5,6 +5,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 require('dotenv').config()
 const app = express()
+const jwt = require('jsonwebtoken')
 const port = 8000
 
 const { User, hashPassword } = require('./Model/UserModel')
@@ -54,7 +55,14 @@ app.post("/login", async (req, res) => {
         await user.save();
       }
   
-      const token = 'dummytoken';
+      const token = jwt.sign(
+        {
+          username: user.username,
+          email: user.email,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
   
       res.cookie("token", token, {
         httpOnly: true,
