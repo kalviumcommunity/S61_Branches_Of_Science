@@ -11,6 +11,7 @@ const EntityForm = ({ onAddEntity }) => {
         "Time takes": '',
         "Overall grade": 0,
         "Description": '',
+        "created_by": '',
   });
 
   const handleChange = (e) => {
@@ -46,6 +47,7 @@ const EntityForm = ({ onAddEntity }) => {
         "Time takes": '',
         "Overall grade": 0,
         "Description": '',
+        "created_by": '',
       });
     } catch (error) {
       console.error("Error adding entity:", error);
@@ -134,6 +136,16 @@ const EntityForm = ({ onAddEntity }) => {
             onChange={handleChange}
             required
           />
+        </div>
+        <div>
+        <label>Created by:</label>
+        <input
+        type="text"
+        name="created_by"
+        value={formData["created_by"]}
+        onChange={handleChange}
+        required
+        />
         </div>
 
         <button type="submit">Add Entity</button>
